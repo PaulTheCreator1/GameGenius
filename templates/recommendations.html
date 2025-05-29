@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}🔍 Προτάσεις{% endblock %}
+
+{% block content %}
+<h1>🌟 Προτάσεις για: {{ user_id }}</h1>
+
+{% if recommendations %}
+<div class="grid">
+    {% for item in recommendations %}
+    <div class="card">
+        <img src="{{ item.imUrl or '/static/no-image.png' }}" alt="Image" onerror="this.src='/static/no-image.png'">
+        <h3>{{ item.title }}</h3>
+        <p class="similarity">Similarity: {{ "%.4f"|format(item.similarity) }}</p>
+
+        <a href="https://www.amazon.com/dp/{{ item.asin }}" target="_blank" class="btn-primary">
+            Περισσότερα
+        </a>
+
+        <button class="btn-primary" onclick="addToFavorites('{{ item.asin }}')">
+            ❤️ Αγαπημένο
+        </button>
+
+        <a href="/export_csv?user_id={{ user_id }}" target="_blank" class="btn-primary" style="margin-top: 0.5rem; display: inline-block; text-decoration: none;">
+            ⬇️ Εξαγωγή σε CSV
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>Δεν βρέθηκαν προτάσεις για τον χρήστη/προϊόν.</p>
+{% endif %}
+
+<script>
+    function addToFavorites(asin) {
+        asin = asin.trim();
+        let favs = JSON.parse(localStorage.getItem('favorites')) || [];
+    
+        // Αποτρέπουμε τα διπλότυπα με indexOf
+        if (favs.indexOf(asin) === -1) {
+            favs.push(asin);
+            localStorage.setItem('favorites', JSON.stringify(favs));
+            alert("Προστέθηκε στα αγαπημένα!");
+        } else {
+            alert("Υπάρχει ήδη στα αγαπημένα.");
+        }
+    }
+    </script>
+    
+</script>
+{% endblock %}

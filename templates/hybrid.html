@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto mt-12 bg-white dark:bg-zinc-800 p-8 rounded-xl shadow-lg">
+    <h2 class="text-4xl font-bold mb-6 dark:text-white">🧠 Hybrid Προτάσεις για Χρήστη</h2>
+
+    <form method="POST" action="/hybrid">
+        <div class="mb-6">
+            <select name="user_id" required
+                class="w-full p-3 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
+                <option value="" disabled selected hidden>Επιλέξτε χρήστη</option>
+                {% for user in users %}
+                <option value="{{ user }}">{{ user }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-6">
+            <label for="user_weight" class="block mb-2 text-sm font-medium dark:text-white">
+                Βάρος User-based: <span id="val_user">0.5</span>
+            </label>
+            <input type="range" name="user_weight" min="0" max="1" step="0.1" value="0.5" id="user_weight"
+                class="w-full accent-blue-600">
+        </div>
+
+        <div class="mb-6">
+            <label for="content_weight" class="block mb-2 text-sm font-medium dark:text-white">
+                Βάρος Content-based: <span id="val_content">0.5</span>
+            </label>
+            <input type="range" name="content_weight" min="0" max="1" step="0.1" value="0.5" id="content_weight"
+                class="w-full accent-blue-600">
+        </div>
+
+        <button type="submit"
+            class="w-full py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition">
+            Δες Hybrid Προτάσεις
+        </button>
+    </form>
+</div>
+
+<script>
+    const userSlider = document.getElementById("user_weight");
+    const contentSlider = document.getElementById("content_weight");
+    const valUser = document.getElementById("val_user");
+    const valContent = document.getElementById("val_content");
+
+    userSlider.addEventListener("input", () => {
+        let user = parseFloat(userSlider.value);
+        let content = 1 - user;
+        contentSlider.value = content.toFixed(1);
+        valUser.innerText = user.toFixed(1);
+        valContent.innerText = content.toFixed(1);
+    });
+
+    contentSlider.addEventListener("input", () => {
+        let content = parseFloat(contentSlider.value);
+        let user = 1 - content;
+        userSlider.value = user.toFixed(1);
+        valUser.innerText = user.toFixed(1);
+        valContent.innerText = content.toFixed(1);
+    });
+</script>
+{% endblock %}

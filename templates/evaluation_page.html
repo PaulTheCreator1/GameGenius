@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}📊 Ανάλυση Αποτελεσμάτων{% endblock %}
+
+{% block content %}
+<div class="form-card">
+    <h1>📊 Ανάλυση Αποτελεσμάτων</h1>  
+    <p>Η παρακάτω σύγκριση παρουσιάζει τις μετρικές αξιολόγησης για κάθε μοντέλο σύστασης που εφαρμόστηκε.</p>
+
+    <div style="text-align: center; margin-top: 2rem;">
+        <img src="/static/rmse_comparison.png" alt="RMSE Comparison" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.15);">
+        <table style="margin: 2rem auto; border-collapse: collapse; min-width: 300px; text-align: center;">
+            <caption style="font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem;">Σύγκριση Μετρικών Αξιολόγησης</caption>
+            <tbody style="color: var(--foreground); background-color: var(--card);">
+                <tr>
+                    <thead style="background-color: var(--primary); color: var(--foreground);">
+                <tr>
+                    <th style="padding: 0.75rem 1rem;">Μετρική</th>
+                    <th>User-based</th>
+                    <th>Content-based</th>
+                    <th>Hybrid</th>
+                </tr>
+            </thead>
+                    <td style="padding: 0.75rem;"><strong>RMSE</strong></td>
+                    <td>2.7434</td><td>0.0000</td><td>2.9732</td>
+                </tr>
+                <tr>
+                    <td style="padding: 0.75rem;"><strong>Precision@5</strong></td>
+                    <td>0.1600</td><td>0.0000</td><td>0.7000</td>
+                </tr>
+                <tr>
+                    <td style="padding: 0.75rem;"><strong>Recall@5</strong></td>
+                    <td>0.8000</td><td>0.0000</td><td>0.7000</td>
+                </tr>
+            </tbody>
+        </table>
+        
+
+        <div style="margin-top: 2rem;">
+            <a href="/static/rmse_comparison.png" download class="btn-primary" style="padding: 0.75rem 1.5rem; font-size: 1rem; text-decoration: none;">
+                ⬇️ Κατέβασε Γράφημα Αξιολόγησης
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

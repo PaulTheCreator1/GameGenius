@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Προτάσεις για Προϊόν{% endblock %}
+{% block content %}
+<h1>🎮 Προτάσεις βάσει Προϊόντος</h1>
+<form action="/similar_products" method="get">
+    <select name="asin" id="asin" required>
+        <option value="" disabled selected hidden>Επιλέξτε προϊόν</option>
+        {% for product in products %}
+        <option value="{{ product.asin }}">{{ product.title }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Δες Παρόμοια</button>
+</form>
+{% endblock %}

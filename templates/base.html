@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> GameGenius</title>
+    <link rel="icon" type="image/png" href="/static/logo.png">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <img src="/static/logo.png" alt="GameGenius" class="logo-img">
+            <span>GameGenius</span>
+        </div>
+        
+        <nav>
+            <a href="/" class="nav-btn">🧑‍💻 Χρήστης</a>
+            <a href="/product" class="nav-btn">🎮 Προϊόν</a>
+            <a href="/hybrid_select" class="nav-btn">🧠 Hybrid</a>
+            <a href="/dashboard" class="nav-btn">📊 Dashboard</a>
+            <a href="/metrics" class="nav-btn">📊 Αξιολόγηση</a>
+            <a href="/favorites" class="nav-btn">❤️ Αγαπημένα</a>
+            <a href="/about" class="nav-btn">📇 Σχετικά</a>
+        </nav>
+        <div class="theme-toggle">
+            <label>
+                <input type="checkbox" id="themeSwitch">
+                <span>🌙</span>
+            </label>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <script>
+        const toggle = document.getElementById('themeSwitch');
+        const root = document.documentElement;
+    
+        // Εφαρμόζουμε αποθηκευμένο theme αν υπάρχει
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            root.setAttribute('data-theme', savedTheme);
+            toggle.checked = savedTheme === 'dark';
+        }
+    
+        toggle.addEventListener('change', () => {
+            const newTheme = toggle.checked ? 'dark' : 'light';
+            root.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    </script>
+        
+</body>
+</html>

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}❤️ Αγαπημένα{% endblock %}
+
+{% block content %}
+<h1>❤️ Τα αγαπημένα μου</h1>
+
+<div class="grid" id="favorites-container">
+    <!-- Τα αγαπημένα προϊόντα θα φορτωθούν εδώ -->
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    let rawFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+    // Καθαρισμός: αφαίρεση διπλότυπων, κενών, και trimming
+    let favorites = [...new Set(rawFavorites.map(asin => asin.trim()).filter(Boolean))];
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+
+    fetch("/static/video_games_ready.json")
+        .then(res => res.json())
+        .then(data => {
+            const container = document.getElementById('favorites-container');
+            const filtered = data.filter(p => favorites.includes(p.asin));
+
+            if (filtered.length === 0) {
+                container.innerHTML = "<p>Δεν έχεις προσθέσει αγαπημένα ακόμη.</p>";
+                return;
+            }
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "card";
+                card.setAttribute("data-asin", item.asin);
+
+                card.innerHTML = `
+                    <img src="${item.imUrl || '/static/no-image.png'}" onerror="this.src='/static/no-image.png'">
+                    <h3>${item.title}</h3>
+                    <a href="https://www.amazon.com/dp/${item.asin}" target="_blank" class="btn-primary">Περισσότερα</a>
+                    <button class="btn-primary danger" onclick="removeFromFavorites('${item.asin}', this)">🗑 Αφαίρεση</button>
+                `;
+                container.appendChild(card);
+            });
+        });
+});
+
+function removeFromFavorites(asin, button) {
+    let favs = JSON.parse(localStorage.getItem('favorites')) || [];
+    favs = favs.filter(id => id.trim() !== asin.trim());
+    localStorage.setItem('favorites', JSON.stringify(favs));
+
+    const card = button.closest(".card");
+    card.remove();
+
+    if (document.querySelectorAll('.card').length === 0) {
+        document.getElementById('favorites-container').innerHTML = "<p>Δεν έχεις προσθέσει αγαπημένα ακόμη.</p>";
+    }
+}
+</script>
+
+<style>
+.danger {
+    background-color: #e74c3c;
+}
+.danger:hover {
+    background-color: #c0392b;
+}
+</style>
+{% endblock %}
