@@ -105,7 +105,7 @@ python app.py
 - Google Chrome / Edge
 - Flask 2.3.x
 
-## requirements.txt
+## requirements
 
 Flask  
 pandas  
