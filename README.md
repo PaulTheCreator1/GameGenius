@@ -117,7 +117,6 @@ matplotlib
 Στεφανίδης Παύλος  
 BSc (Hons) Computer Science  
 Metropolitan College - University of East London
-Επιβλέπων Καθηγητής: Γουναρίδης Ιωάννης  
 Ιούνιος 2025
 
 ## Άδεια Χρήσης
