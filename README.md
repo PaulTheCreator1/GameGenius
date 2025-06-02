@@ -117,6 +117,7 @@ matplotlib
 Στεφανίδης Παύλος  
 BSc (Hons) Computer Science  
 Metropolitan College - University of East London
+
 Επιβλέπων Καθηγητής: Ζώντου Αικατερίνη 
 Ιούνιος 2025
 
