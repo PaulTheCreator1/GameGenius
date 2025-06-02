@@ -60,12 +60,6 @@ source venv/bin/activate        # Linux/macOS
 venv\Scripts\activate         # Windows
 ```
 
-3. Εγκατάσταση απαιτούμενων βιβλιοθηκών:
-
-```
-pip install -r requirements.txt
-```
-
 ## Εκκίνηση Εφαρμογής
 
 ```bash
